@@ -51,7 +51,10 @@ insert into auth.users(id, email) values
   ('00000000-0000-0000-0000-000000000003', 'payroll@test.mv'),
   ('00000000-0000-0000-0000-000000000004', 'accounts@test.mv'),
   ('00000000-0000-0000-0000-000000000005', 'viewer@test.mv'),
-  ('00000000-0000-0000-0000-000000000009', 'other@other.mv');
+  ('00000000-0000-0000-0000-000000000009', 'other@other.mv'),
+  ('00000000-0000-0000-0000-000000000008', 'stranger@example.com');
+-- test owners may create companies
+insert into public.platform_owners(email) values ('owner@test.mv'), ('other@other.mv');
 
 -- Owner signs up and bootstraps a company
 set role authenticated;
@@ -59,6 +62,9 @@ select set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-000000000001
 select test.put('company', public.bootstrap_company('Test Fishing Pvt Ltd', 'Ahmed Owner', 'en'));
 select test.eq((select count(*)::int from public.categories), 13, 'default categories seeded');
 select test.expect_error($$select public.bootstrap_company('Again', 'x')$$, 'already belongs');
+select set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-000000000008', false);
+select test.expect_error($$select public.bootstrap_company('Fake Co', 'x')$$, 'not_invited');
+select test.eq(public.can_create_company(), false, 'stranger cannot create a company');
 
 -- Another company (tenant isolation)
 select set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-000000000009', false);

@@ -35,6 +35,9 @@ npm run dev                       # http://localhost:5173
 
 Full instructions: **[docs/SETUP.md](docs/SETUP.md)** · Deploying: **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** · Testing: **[docs/TESTING.md](docs/TESTING.md)** · Accounting basis: **[docs/ACCOUNTING.md](docs/ACCOUNTING.md)** · Backups: **[docs/BACKUP.md](docs/BACKUP.md)** · Security: **[docs/SECURITY.md](docs/SECURITY.md)**
 
+## Owner
+Only **unooshahmed@gmail.com** can create the company (it becomes the Owner). Everyone else joins by invitation (*Users and Permissions → Invite user*). To allow another owner email, add it to the `platform_owners` table in Supabase.
+
 ## Project layout
 
 ```
