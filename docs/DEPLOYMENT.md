@@ -11,6 +11,14 @@ git push -u origin main
 
 `.env.local` is git-ignored. Never commit keys.
 
+## 1b. Database without the command line (GitHub Actions)
+1. Create a project at supabase.com (choose the **Singapore** or **Mumbai** region, close to the Maldives). Save the database password.
+2. Create an access token: supabase.com/dashboard/account/tokens → *Generate new token*.
+3. GitHub repo → **Settings → Secrets and variables → Actions → New repository secret**, three times:
+   `SUPABASE_ACCESS_TOKEN`, `SUPABASE_PROJECT_REF` (the code in `https://<ref>.supabase.co`), `SUPABASE_DB_PASSWORD`.
+4. **Actions → Deploy database (Supabase) → Run workflow.** When it is green, the tables, security, storage and payroll functions exist.
+5. After the site is online, add a repository *variable* `SITE_URL` = your site address (e.g. `https://galary.vercel.app`) and run the workflow again.
+
 ## 2. Host the web app (pick one)
 
 ### Vercel
