@@ -1,0 +1,24 @@
+# Supabase CLI configuration (used by `supabase start`, `supabase db push`, `supabase functions deploy`)
+project_id = "galary"
+
+[api]
+schemas = ["public"]
+extra_search_path = ["public", "extensions"]
+
+[auth]
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173/reset-password"]
+minimum_password_length = 8
+
+[auth.email]
+enable_signup = true
+enable_confirmations = true
+
+[storage]
+file_size_limit = "20MiB"
+
+[functions.payroll]
+verify_jwt = true
+
+[functions.invite-user]
+verify_jwt = true

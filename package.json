@@ -1,0 +1,43 @@
+{
+  "name": "galary",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Galary — fishing fleet, crew, bills, payroll and accounting for Maldivian boat owners (English / ދިވެހި)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:db": "bash scripts/test-db.sh",
+    "db:push": "supabase db push",
+    "functions:deploy": "supabase functions deploy payroll && supabase functions deploy invite-user"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-thaana": "^5.0.20",
+    "@supabase/supabase-js": "^2.45.4",
+    "exceljs": "^4.4.0",
+    "html2pdf.js": "^0.10.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "tesseract.js": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.16.10",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.2"
+  },
+  "engines": {
+    "node": ">=18.18"
+  }
+}
