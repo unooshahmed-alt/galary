@@ -5,6 +5,7 @@ import { cx } from './ui';
 import { useI18n } from '@/lib/i18n';
 import { useAuth } from '@/lib/auth';
 import { rpc, type Row } from '@/lib/db';
+import { DemoBanner } from './DemoBanner';
 
 export interface NavItem { to: string; icon: string; label: string; perm?: string; anyPerm?: string[]; group: 'ops' | 'money' | 'payroll' | 'admin' }
 
@@ -127,6 +128,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-sand-50">
+      <DemoBanner />
       <aside className="fixed inset-y-0 start-0 z-30 hidden w-64 bg-ocean-900 lg:block">{sidebar}</aside>
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">

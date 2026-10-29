@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { Session } from '@supabase/supabase-js';
-import { supabase, isConfigured } from './supabase';
+import { supabase, isConfigured, isDemo } from './supabase';
 import { rpc, type Row } from './db';
 import { hasStoredLanguage, useI18n, type Lang } from './i18n';
 
@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [setLang]);
 
   useEffect(() => {
-    if (!isConfigured) { setLoading(false); return; }
+    if (!isConfigured && !isDemo) { setLoading(false); return; }
     let active = true;
     supabase.auth.getSession().then(async ({ data }) => {
       if (!active) return;

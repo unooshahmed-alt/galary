@@ -1,0 +1,53 @@
+name: Publish website (GitHub Pages)
+
+# Builds the app and publishes it to GitHub Pages.
+# With no Supabase keys it publishes in DEMO mode (sample data, nothing saved).
+# Add repository variables VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to
+# publish the real app against your database.
+# One-time setup: Settings -> Pages -> Source = "GitHub Actions".
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm install
+      - name: Build
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ vars.VITE_SUPABASE_ANON_KEY }}
+          VITE_ALLOW_SIGNUP: ${{ vars.VITE_ALLOW_SIGNUP }}
+        run: |
+          if [ -z "$VITE_SUPABASE_URL" ]; then
+            echo "::notice title=Demo mode::No VITE_SUPABASE_URL variable set — publishing with sample data."
+          fi
+          npm run build
+          cp dist/index.html dist/404.html   # SPA fallback for deep links
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: dist }
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

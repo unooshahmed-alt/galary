@@ -259,6 +259,8 @@ const en = {
   approvals: { title: 'Approvals', pending: 'Waiting for approval', empty: 'Nothing is waiting for your approval.' },
   audit: { title: 'Audit History', table: 'Record type', action: 'Action', changed: 'Changed fields', user: 'User', when: 'When', insert: 'Created', update: 'Changed', delete: 'Deleted' },
   errors: {
+    demoReadonly: 'Demo mode: nothing is saved. Connect a database to use Galary for real.',
+    demoBanner: 'DEMO — sample data, nothing is saved. Connect a Supabase database to use Galary for real.',
     generic: 'Something went wrong. Please try again.', permission: 'You do not have permission to do this.',
     network: 'Could not reach the server. Check your connection.', duplicateBill: 'This bill may be a duplicate. Review it and give a justification.',
     overpayment: 'The payment is more than the outstanding balance.', required: 'This field is required',

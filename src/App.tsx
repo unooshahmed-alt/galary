@@ -2,7 +2,7 @@ import { lazy, Suspense, type ReactNode } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useAuth } from './lib/auth';
 import { useI18n } from './lib/i18n';
-import { isConfigured } from './lib/supabase';
+import { isConfigured, isDemo } from './lib/supabase';
 import { Layout } from './components/Layout';
 import { Spinner, Alert } from './components/ui';
 import { Login, Signup, ForgotPassword, ResetPassword, Onboarding, ConfigMissing } from './pages/Auth';
@@ -49,7 +49,7 @@ export function App() {
   const { session, profile, loading, recovery } = useAuth();
   const loc = useLocation();
 
-  if (!isConfigured) return <ConfigMissing />;
+  if (!isConfigured && !isDemo) return <ConfigMissing />;
   if (loading) return <Loading />;
   if (recovery || loc.pathname === '/reset-password') return <ResetPassword />;
 

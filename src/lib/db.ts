@@ -50,6 +50,7 @@ export function errorText(err: unknown, t: TFn): string {
   const msg = String(e?.message ?? err ?? '');
   if (!msg) return t('errors.generic');
   if (!/not_invited/i.test(msg) && /permission_denied|row-level security|42501|not allowed/i.test(msg) || e?.code === '42501') return t('errors.permission');
+  if (/demo_readonly/i.test(msg)) return t('errors.demoReadonly');
   if (/not_invited/i.test(msg)) return t('auth.notInvited');
   if (/possible_duplicate/i.test(msg)) return t('errors.duplicateBill');
   if (/^overpayment/i.test(msg)) return t('errors.overpayment');
